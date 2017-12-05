@@ -1,7 +1,7 @@
 {
-  "name": "vuetest-one",
+  "name": "oc-merchant",
   "version": "1.0.0",
-  "description": "yueruiying new project",
+  "description": "A Vue.js project",
   "author": "yueruiying <1334993200@qq.com>",
   "private": true,
   "scripts": {
