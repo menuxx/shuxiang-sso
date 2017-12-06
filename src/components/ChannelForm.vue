@@ -1,7 +1,14 @@
 <template>
   <div>
+    <el-form :model="ruleForm" :rules="rules" label-width="100px" ref="channelForm" class="demo-ruleForm" size="small">
 
-    <el-form  :model="ruleForm" :rules="rules" label-width="100px" ref="ruleForm" class="demo-ruleForm">
+      <el-form-item label="推荐商品"  prop="name">
+        <el-select v-model="ruleForm.name" style="width:100%" placeholder=" 请选择推广的商品（书籍）">
+          <el-option label="活着1" value="1"></el-option>
+          <el-option label="活着2" value="2"></el-option>
+          <el-option label="活着3" value="3"></el-option>
+        </el-select>
+      </el-form-item>
 
       <el-form-item label="商品ID" prop="ID">
         <el-input  v-model="ruleForm.ID" placeholder="商品ID"></el-input>
@@ -9,6 +16,27 @@
 
       <el-form-item label="邮递费"  prop="expressFee">
         <el-input placeholder="邮递费" v-model="ruleForm.expressFee"></el-input>
+      </el-form-item>
+
+      <el-form-item label="推荐人头像" prop="peopleImg">
+        <input type="hidden" v-model="ruleForm.peopleImg" />
+        <el-upload
+          class="avatar-uploader"
+          action=""
+          accept="image/*"
+          :data="uploadData"
+          list-type="picture-card"
+          :limit="1"
+          :file-list="uploadFiles"
+          :on-preview="handlePictureCardPreview"
+          :before-upload="onUploadBeforeUpload"
+          :on-error="onUploadError"
+          :on-success="onUploadSuccess"
+          :on-progress="onUploadProgress"
+          :http-request="upload"
+          :show-file-list="true">
+          <i class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </el-form-item>
 
       <el-form-item label="推荐价格"  prop="price">
@@ -21,7 +49,6 @@
 
       <el-form-item label="大V姓名" prop="ownerName">
         <el-input v-model="ruleForm.ownerName" placeholder="大V姓名"></el-input>
-
       </el-form-item>
 
       <el-form-item label="大V头像" prop="peopleImg">
@@ -93,7 +120,7 @@
 
 
       <el-form-item>
-        <el-button type="primary"  @click="submitForm('ItemList')">提交</el-button>
+        <el-button type="primary" @click="submitForm()">提交</el-button>
       </el-form-item>
 
     </el-form>
@@ -102,6 +129,8 @@
 
 
 <script>
+
+  import upload from "../lib/qiniu-upload"
 
   const checkNumber = (rule, value, callback) => {
     if (value === null) {
@@ -120,6 +149,11 @@
   export default {
     data() {
       return {
+        uploadFiles: [],
+        uploadData: {
+          keyPrefix: "images/channel"
+        },
+        imageUrl: '',
         ruleForm: {
           ID:'',
           expressFee:'',
@@ -142,8 +176,15 @@
           expressFee:[
             { required:true, validator: checkNumber, trigger: 'blur' }
           ],
+          people: [
+            { required: true, message: '请输入推荐人姓名', trigger: 'blur' },
+            { min: 3, max: 20, message: '长度在4到20个字符', trigger: 'blur' }
+          ],
           price: [
             { required:true, validator: checkNumber, trigger: 'blur' },
+          ],
+          peopleImg: [
+            { required: true, trigger: 'blur', message: '至少有一张图片' },
           ],
           stock: [
             { required:true, validator: checkNumber, trigger: 'blur' },
@@ -166,13 +207,39 @@
           expiredTime:[
 
           ]
-        },
-        imageUrl: ''
+        }
+      }
+    },
+    watch: {
+      uploadFiles: function (newFiles) {
+        this.ruleForm.peopleImg = newFiles[0].key
       }
     },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+      upload,
+      handlePictureCardPreview(file) {
+
+      },
+      onUploadBeforeUpload(file) {
+
+      },
+      // 文件上传成功的时候
+      onUploadSuccess(res, file, fileList) {
+         if (res) {
+           this.uploadFiles.push({
+             key: res.key,
+             name: file.name,
+             url: "https://file.menuxx.com/" + res.key
+           })
+         }
+      },
+      onUploadError(file, fileList) {
+      },
+      onUploadProgress(e) {
+        console.log(e)
+      },
+      submitForm() {
+        this.$refs.channelForm.validate((valid) => {
           if(valid){
 
           } else {
