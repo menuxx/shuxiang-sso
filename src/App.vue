@@ -3,9 +3,9 @@
     <el-aside width="200px">
       <el-menu :router="true">
         <el-menu-item index="/"><i class="el-icon-menu"></i>首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</el-menu-item>
-        <el-menu-item index="/channel_new"><i class="el-icon-menu"></i>推广渠道</el-menu-item>
-        <el-menu-item index="/channel"><i class="el-icon-menu"></i>推广渠道</el-menu-item>
-        <el-menu-item index="/HelloWorld"><i class="el-icon-menu"></i>推广渠道</el-menu-item>
+        <el-menu-item index="/ChannelForm"><i class="el-icon-menu"></i>推广渠道</el-menu-item>
+        <el-menu-item index="/ItemList"><i class="el-icon-menu"></i>推广渠道</el-menu-item>
+        <el-menu-item index="/item"><i class="el-icon-menu"></i>推广渠道</el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
