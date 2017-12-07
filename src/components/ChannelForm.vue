@@ -19,7 +19,6 @@
       </el-form-item>
 
       <el-form-item label="推荐人头像" prop="peopleImg">
-        <input type="hidden" v-model="ruleForm.peopleImg" />
         <el-upload
           class="avatar-uploader"
           action=""
@@ -33,13 +32,13 @@
           :on-error="onUploadError"
           :on-success="onUploadSuccess"
           :on-progress="onUploadProgress"
-          :http-request="upload"
+          :http-request="upload1"
           :show-file-list="true">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
 
-      <el-form-item label="推荐价格"  prop="price">
+      <el-form-item label="推荐价格" prop="price">
         <el-input  v-model="ruleForm.price" placeholder="例如：1.0，不填就是0元免费送"></el-input>
       </el-form-item>
 
@@ -95,7 +94,6 @@
       </el-form-item>
 
       <el-form-item label="渠道开始时间" prop="startTime">
-
         <el-col :span="11">
           <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
         </el-col>
@@ -130,8 +128,6 @@
 
 <script>
 
-  import upload from "../lib/qiniu-upload"
-
   const checkNumber = (rule, value, callback) => {
     if (value === null) {
       return callback(new Error('此项不能为空'));
@@ -151,7 +147,7 @@
       return {
         uploadFiles: [],
         uploadData: {
-          keyPrefix: "images/channel"
+          keyPrefix: "images/channel/"
         },
         imageUrl: '',
         ruleForm: {
@@ -210,13 +206,8 @@
         }
       }
     },
-    watch: {
-      uploadFiles: function (newFiles) {
-        this.ruleForm.peopleImg = newFiles[0].key
-      }
-    },
     methods: {
-      upload,
+      upload1: require("../lib/qiniu-upload").default,
       handlePictureCardPreview(file) {
 
       },
@@ -226,6 +217,7 @@
       // 文件上传成功的时候
       onUploadSuccess(res, file, fileList) {
          if (res) {
+           this.ruleForm.peopleImg = res.key
            this.uploadFiles.push({
              key: res.key,
              name: file.name,
@@ -236,7 +228,6 @@
       onUploadError(file, fileList) {
       },
       onUploadProgress(e) {
-        console.log(e)
       },
       submitForm() {
         this.$refs.channelForm.validate((valid) => {

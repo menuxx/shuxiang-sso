@@ -94,7 +94,7 @@ function post (url, data, onProgress) {
  *
  */
 function getUpToken () {
-  return get('/qiniu_uptoken')
+  return get('/api/upload/qn_uptoken')
 }
 
 function getUploadMock() {
@@ -109,8 +109,8 @@ function getUploadMock() {
  */
 export default function upload (option) {
   var form = new FormData()
-  return getUploadMock().then(function (token) {
-    form.append("key", option.data.keyPrefix + "/" + randomString(10) + getSuffix(option.file.name) )
+  return getUpToken().then(function (token) {
+    form.append("key", option.data.keyPrefix + randomString(10) + getSuffix(option.file.name) )
     form.append("token", token.uptoken)
     form.append("file", option.file)
     form.append("accept", "application/json")

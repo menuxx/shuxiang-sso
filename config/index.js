@@ -6,16 +6,15 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://dev.api.qurenjia.com',
+        target: 'http://oc-api_prod.daocloudapp.com',
         changeOrigin: true,
         pathRewrite: {
-          '^/list': '/'
+          '^/api': '/'
         }
       }
     },
