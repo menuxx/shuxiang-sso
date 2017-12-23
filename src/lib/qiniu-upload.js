@@ -1,4 +1,6 @@
 
+import http from '../http'
+
 function getError(action, option, xhr) {
   let msg;
   if (xhr.response) {
@@ -45,22 +47,6 @@ function getBody(xhr) {
   }
 }
 
-function get (url) {
-  var xhr = new XMLHttpRequest()
-  xhr.open("GET", url, true)
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-  xhr.send(null)
-  return new Promise(function (resolve, reject) {
-    xhr.onload = function () {
-      if (xhr.status < 200 || xhr.status >= 300) {
-        return reject({ action: 'get', xhr });
-      }
-      resolve(getBody(xhr))
-    };
-    xhr.onerror = reject
-  })
-}
-
 function post (url, data, onProgress) {
   var xhr = new XMLHttpRequest()
   xhr.open("POST", url, true)
@@ -94,13 +80,7 @@ function post (url, data, onProgress) {
  *
  */
 function getUpToken () {
-  return get('/api/upload/qn_uptoken')
-}
-
-function getUploadMock() {
-  return Promise.resolve({
-    uptoken: "sr4H3rnxg3fkN9bf5NBTj9V9ptPFMnW5Ryxbg_o6:CrrSyrCAQqRN1XJwidbbve_1XBY=:eyJzY29wZSI6Im1lbnV4eCIsImRlYWRsaW5lIjoxNTEyNTU2NDAwfQ=="
-  })
+  return http.get('/upload/qn_uptoken').then( res => res.data )
 }
 
 /**

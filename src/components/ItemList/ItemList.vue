@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-button  class="add-button"  @click="toCreateChannelForm" type="primary" icon="el-icon-circle-plus">添加商品</el-button>
+    <el-button class="add-button" @click="toCreateItemForm" type="primary" icon="el-icon-circle-plus">添加商品(书籍)</el-button>
     <el-table
       :data="tableData"
       border
@@ -65,8 +65,8 @@
 <script>
   export default {
     methods: {
-      toCreateChannelForm(){
-        this.$router.push('item')
+      toCreateItemForm(){
+        this.$router.push({ name: 'create_item' })
       }
     },
     data() {

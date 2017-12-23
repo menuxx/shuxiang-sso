@@ -3,16 +3,24 @@
 
 import Vue from 'vue'
 import router from './router'
-import ElementUI from 'element-ui'
+import store from './store'
 import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
 import App from './App'
+import http from './http'
 import './lib/type'
+
+console.log('process.env.NODE_ENV: ' + process.env.NODE_ENV)
+
+// 可以使用 this.$http 的方法来使用 axios
+Vue.prototype.$http = http
 
 Vue.use(ElementUI)
 
 new Vue({
   el: '#app',
+  http,
+  store,
   router,
-  template: `<App />`,
-  components: { App }
+  render: h => h(App)
 })

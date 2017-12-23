@@ -1,0 +1,105 @@
+
+import http from './index'
+
+const pageSize = 10
+
+/**
+ * 获取渠道中的订单
+ * @param channelId
+ * @param pageNum
+ * @returns {AxiosPromise<any>}
+ */
+export const getChannelOrders = (channelId, pageNum) => {
+  return http.get(`/orders?channelId=${channelId}&pageNum=${pageNum}&pageSize=${pageSize}`)
+}
+
+/**
+ * 订单完成配送
+ * @param orderId
+ * @param expressNo
+ * @param expressName
+ * @returns {AxiosPromise<any>}
+ */
+export const orderDoDelivery = (orderId, expressNo, expressName) => {
+  return http.put(`/orders/${orderId}/delivery`, { expressNo, expressName })
+}
+
+/**
+ * 加载系统中支持的快递
+ * @returns {AxiosPromise<any>}
+ */
+export const loadExpresses = () => {
+  return http.get(`expresses`)
+}
+
+/**
+ * 加载商品
+ * @returns {AxiosPromise<any>}
+ */
+export const loadItems = (pageNum) => {
+  return http.get(`items?pageNum=${pageNum}&pageSize=${pageSize}`)
+}
+
+/**
+ * 更新商品
+ * @param item
+ * @returns {AxiosPromise<any>}
+ */
+export const updateItem = (item) => {
+  return http.put(`items/${item.id}`, item)
+}
+
+/**
+ * 创建一个渠道
+ * @param channel
+ * @returns {AxiosPromise<any>}
+ */
+export const createChannel = (channel) => {
+  return http.post(`channels`, channel)
+}
+
+/**
+ * 更新一个渠道，已经启动的渠道，不能更新
+ * @param channelId
+ * @param updateChannel
+ * @returns {AxiosPromise<any>}
+ */
+export const updateChannel = (channelId, updateChannel) => {
+  return http.put(`channels/${channelId}`, updateChannel)
+}
+
+/**
+ * 加载商家所有的渠道
+ * @returns {AxiosPromise<any>}
+ */
+export const loadChannels = () => {
+  return http.get(`channels`)
+}
+
+/**
+ * 发送验证码
+ * @param mobile
+ * @returns {AxiosPromise<any>}
+ */
+export const sendCaptcha = (mobile) => {
+  return http.put(`/auth/send_captcha`, { phoneNumber: mobile })
+}
+
+/**
+ * 获取会话令牌通过手机号验证码
+ * @param mobile
+ * @param captcha
+ * @returns {AxiosPromise<any>}
+ */
+export const getSessionTokenByCaptcha = (mobile, captcha) => {
+  return http.put(`/auth/captcha_to_token`, { phoneNumber: mobile, captcha })
+}
+
+/**
+ * 刷新安全令牌
+ * @param token
+ * @returns {AxiosPromise<any>}
+ */
+export const refreshSessionToken = (token) => {
+  return http.put(`/auth/refresh_token`, { token })
+}

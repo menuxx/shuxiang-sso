@@ -207,7 +207,7 @@
       }
     },
     methods: {
-      upload1: require("../lib/qiniu-upload").default,
+      upload1: require("../../lib/qiniu-upload").default,
       handlePictureCardPreview(file) {
 
       },
