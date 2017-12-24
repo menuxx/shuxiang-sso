@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-form" label-width="100px">
+    <el-form @submit.native.prevent="onLogin" ref="loginForm" :model="loginForm" :rules="rules" class="login-form" label-width="100px">
       <el-form-item label="手机号" prop="phoneNumber">
         <el-input v-model="loginForm.phoneNumber" placeholder="收取验证码的手机号" />
       </el-form-item>
@@ -14,7 +14,7 @@
         </el-col>
       </el-form-item>
       <el-form-item>
-        <el-button @click.native="onLogin" type="primary">登录</el-button>
+        <el-button type="primary" native-type="submit">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -113,14 +113,14 @@
           this.$message.info('请求服务器中...')
           return
         }
-        this.$refs.loginForm.validate((valid) => {
+        this.$refs.loginForm.validate(valid => {
           if (valid) {
             loginPromise = getSessionTokenByCaptcha(this.loginForm.phoneNumber, this.loginForm.captchaCode).then(res => {
               var {token, userInfo} = res.data
               auth.setMyAuthToken(token)
               auth.setUserInfo(userInfo)
               this.$store.commit(types.USER_AUTH_TOKEN_UPDATE, {token, userInfo})
-              this.$router.push({ path: decodeURIComponent(this.redirectPath)})
+              this.$router.push({ path: this.redirectPath})
             }, err => {
               this.$message.error('登录出现错误:' + err.message)
             })

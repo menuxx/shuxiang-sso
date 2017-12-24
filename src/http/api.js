@@ -33,6 +33,15 @@ export const loadExpresses = () => {
 }
 
 /**
+ * 创建一个商品
+ * @param item
+ * @returns {AxiosPromise<any>}
+ */
+export const createItem = (item) => {
+  return http.post(`items`, item)
+}
+
+/**
  * 加载商品
  * @returns {AxiosPromise<any>}
  */
