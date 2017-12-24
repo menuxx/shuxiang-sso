@@ -15,11 +15,14 @@ export const ITEM_ADDED = 'item_added'
 // 加载商品
 export const ITEMS_LOADED = 'items_loaded'
 
+// 加载渠道
+export const V_CHANNELS_LOADED = 'v_channels_loaded'
+
 // 更新渠道
-export const CHANNEL_UPDATED = 'channel_updated'
+export const V_CHANNEL_UPDATED = 'v_channel_updated'
 
 // 创建渠道
-export const CHANNEL_ADDED = 'channel_added'
+export const V_CHANNEL_ADDED = 'v_channel_added'
 
 // 加载渠道订单
-export const CHANNEL_ORDER_LOADED = 'channel_order_loaded'
+export const V_CHANNEL_ORDERS_LOADED = 'v_channel_orders_loaded'

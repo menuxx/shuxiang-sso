@@ -14,15 +14,15 @@ const state = {
   // 商品列表
   items: [],
   // 渠道中的订单列表
-  channelOrders: [],
+  vChannelOrders: [],
   // 商品列表
   books: [],
   // 渠道列表
-  channels: [],
+  vChannels: [],
   // 更新的 channel
-  updateChannel: null,
+  updateVChannel: null,
   // 新创建的渠道
-  newChannel: null,
+  newVChannel: null,
   // item 表单
   itemForm: {
     name: '',

@@ -1,88 +1,90 @@
 <template>
   <div class="page-container">
-    <el-col :span="10">
-      <el-form @submit.native.prevent="submitForm" :model="itemFormModel" :rules="rules" label-width="100px" ref="itemForm" class="item-from">
+    <el-row>
+      <el-col :span="16">
+        <el-form @submit.native.prevent="submitForm" :model="itemFormModel" :rules="rules" label-width="100px" ref="itemForm" class="item-from">
 
-        <el-form-item label="商品名称" prop="name">
-          <el-input placehholder="书籍名称" v-model="itemFormModel.name"></el-input>
-        </el-form-item>
+          <el-form-item label="商品名称" prop="name">
+            <el-input placehholder="书籍名称" v-model="itemFormModel.name"></el-input>
+          </el-form-item>
 
-        <el-form-item label="商品价格" prop="price">
-          <el-input placehholder="单位: 元" v-model="itemFormModel.price"></el-input>
-        </el-form-item>
+          <el-form-item label="商品价格" prop="price">
+            <el-input placehholder="单位: 元" v-model="itemFormModel.price"></el-input>
+          </el-form-item>
 
-        <el-form-item label="封面大图" prop="coverImage">
-          <el-upload
-            class="thumb-uploader"
-            :data="uploadData"
-            accept="image/*"
-            action=""
-            list-type="picture-card"
-            :limit="1"
-            :file-list="uploadCoverImage"
-            :http-request="uploadHandler"
-            :on-success="onCoverImageUploadSuccess"
-            :show-file-list="true">
-            <img v-if="uploadCoverImage.length > 0" :src="uploadCoverImage.url" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-form-item>
+          <el-form-item label="封面大图" prop="coverImage">
+            <el-upload
+              class="thumb-uploader"
+              :data="uploadData"
+              accept="image/*"
+              action=""
+              list-type="picture-card"
+              :limit="1"
+              :file-list="uploadCoverImage"
+              :http-request="uploadHandler"
+              :on-success="onCoverImageUploadSuccess"
+              :show-file-list="true">
+              <img v-if="uploadCoverImage.length > 0" :src="uploadCoverImage.url" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
 
-        <el-form-item label="缩略图" prop="thumbImgs">
-          <el-upload
-            class="cover-uploader"
-            action=""
-            accept="image/*"
-            :data="uploadData"
-            list-type="picture-card"
-            :limit="4"
-            :file-list="uploadThumbImages"
-            :on-success="onThumbImagesUploadSuccess"
-            :http-request="uploadHandler"
-            :show-file-list="true">
-            <i class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-form-item>
+          <el-form-item label="缩略图" prop="thumbImgs">
+            <el-upload
+              class="cover-uploader"
+              action=""
+              accept="image/*"
+              :data="uploadData"
+              list-type="picture-card"
+              :limit="4"
+              :file-list="uploadThumbImages"
+              :on-success="onThumbImagesUploadSuccess"
+              :http-request="uploadHandler"
+              :show-file-list="true">
+              <i class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
 
 
-        <el-form-item label="ISBN" prop="isbn">
-          <el-input placeholder="如有多个用逗号分隔" v-model="itemFormModel.isbn"></el-input>
-        </el-form-item>
+          <el-form-item label="ISBN" prop="isbn">
+            <el-input placeholder="如有多个用逗号分隔" v-model="itemFormModel.isbn"></el-input>
+          </el-form-item>
 
-        <el-form-item label="出版社" prop="press">
-          <el-input  v-model="itemFormModel.press" placeholder="出版社"></el-input>
-        </el-form-item>
+          <el-form-item label="出版社" prop="press">
+            <el-input  v-model="itemFormModel.press" placeholder="出版社"></el-input>
+          </el-form-item>
 
-        <el-form-item label="作者" prop="authors">
-          <el-input placeholder="如有多个用逗号分隔" v-model="itemFormModel.authors"></el-input>
-        </el-form-item>
+          <el-form-item label="作者" prop="authors">
+            <el-input placeholder="如有多个用逗号分隔" v-model="itemFormModel.authors"></el-input>
+          </el-form-item>
 
-        <el-form-item label="译者" prop="translator">
-          <el-input placeholder="如有多个用逗号分隔" v-model="itemFormModel.translator"></el-input>
-        </el-form-item>
+          <el-form-item label="译者" prop="translator">
+            <el-input placeholder="如有多个用逗号分隔" v-model="itemFormModel.translator"></el-input>
+          </el-form-item>
 
-        <el-form-item label="描述" prop="describe">
-          <el-input v-model="itemFormModel.describe"
-                    type="textarea"
-                    :rows="2"
-                    placeholder="例如：读这本书收获的不仅是..."
-          >
-          </el-input>
-        </el-form-item>
+          <el-form-item label="描述" prop="describe">
+            <el-input v-model="itemFormModel.describe"
+                      type="textarea"
+                      :rows="2"
+                      placeholder="例如：读这本书收获的不仅是..."
+            >
+            </el-input>
+          </el-form-item>
 
-        <el-form-item label="商店连接" prop="shopUrl">
-          <el-input v-model="itemFormModel.shopUrl" placeholder="一个URL连接，必须以http(s)://开头"></el-input>
-        </el-form-item>
+          <el-form-item label="商店连接" prop="shopUrl">
+            <el-input v-model="itemFormModel.shopUrl" placeholder="一个URL连接，必须以http(s)://开头"></el-input>
+          </el-form-item>
 
-        <el-form-item>
-          <el-button native-type="submit" type="primary">提交</el-button>
-        </el-form-item>
+          <el-form-item>
+            <el-button native-type="submit" type="primary">提交</el-button>
+          </el-form-item>
 
-      </el-form>
-    </el-col>
-    <el-col :span="4">
+        </el-form>
+      </el-col>
+      <el-col :span="8">
 
-    </el-col>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <style lang="scss">
@@ -97,7 +99,9 @@
   import isEmpty from 'is-empty'
   import uploadHandler from "../../lib/qiniu-upload"
   import config from '../../config'
+  import ElCol from "element-ui/packages/col/src/col";
   export default {
+    components: {ElCol},
     data() {
       return {
         uploadData: {

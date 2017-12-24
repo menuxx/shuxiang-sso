@@ -7,21 +7,35 @@ export default {
     state.auth.userInfo = payload.userInfo
   },
   // 商品创建完成
-  [types.CHANNEL_ADDED] (state, newChannel) {
-    state.channels.push(newChannel)
+  [types.V_CHANNEL_ADDED] (state, newChannel) {
+    state.vChannels.push(newChannel)
   },
   [types.ITEM_ADDED] (state, newItem) {
     state.items.push(newItem)
   },
   // 渠道中的订单加载
-  [types.CHANNEL_ORDER_LOADED] (state, orders) {
-    state.channelOrders = orders
+  [types.V_CHANNEL_ORDERS_LOADED] (state, orders) {
+    state.vChannelOrders = orders
   },
   // 商品记载完成
   [types.ITEMS_LOADED] (state, items) {
     state.items = items
   },
-  [types.ITEM_FROM_UPDATED] (state, itemFrom) {
-    state.itemFrom = itemFrom
+  [types.ITEM_FROM_UPDATED] (state, itemForm) {
+    state.itemFrom = itemForm
+  },
+  // 渠道创建
+  [types.V_CHANNEL_ADDED] (state, updatedChannel) {
+    state.vChannels.forEach((channel, index) => {
+      if (updatedChannel.id === channel.id) {
+        state.vChannels[index] = updatedChannel
+      }
+    })
+  },
+  [types.V_CHANNEL_ORDERS_LOADED] (state, orders) {
+    state.vChannelOrders = orders
+  },
+  [types.V_CHANNELS_LOADED] (state, channels) {
+    state.vChannels = channels
   }
 }

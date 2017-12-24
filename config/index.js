@@ -11,11 +11,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://127.0.0.1:8070',
-        // target: 'http://wxtest.qurenjia.com',
+        // target: 'http://192.168.199.244:8070',
+        target: 'http://wxtest.qurenjia.com',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/'
+          // '^/api': '/'
         }
       }
     },

@@ -34,7 +34,6 @@
   import * as auth from '../../http/auth'
   import * as types from '../../store/types'
   import isEmpty from 'is-empty'
-  import ElCol from "element-ui/packages/col/src/col";
   var loginPromise = completePromise()
   var sendCaptchaPromise = completePromise()
 
@@ -52,7 +51,6 @@
     return parseInt(sessionStorage.getItem('__captcha_send_times__'), 10)
   }
   export default {
-    components: {ElCol},
     data() {
       return {
         rules: {
@@ -67,7 +65,7 @@
         },
         loginForm: {
           phoneNumber: '13575762817',
-          captchaCode: null,
+          captchaCode: '8610',
         },
         redirectPath: '/index', // 重定向到的位置，默认是根路径
         reverseSeconds: 60, // 倒计时

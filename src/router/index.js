@@ -23,8 +23,8 @@ const router = new Router({
           require(['../components/Dashboard/Dashboard'], resolve)
         } },
         // 加载 channel 订单
-        { path: '/channels/{channelId}/orders', name: 'channel_orders', meta: { needAuth: true }, component: function (resolve) {
-          require(['../components/ChannelOrderList/ChannelOrderList'], resolve)
+        { path: '/channels/:channelId/orders', name: 'v_channel_orders', meta: { needAuth: true }, component: function (resolve) {
+          require(['../components/VChannelOrderList/VChannelOrderList'], resolve)
         } },
         // 加载 items
         { path: '/items', name: 'item_list', meta: { needAuth: true }, component: function (resolve) {
@@ -40,16 +40,16 @@ const router = new Router({
         } },
 
         // 加载 channels
-        { path: '/channels', name: 'channel_list', meta: { needAuth: true }, component: function (resolve) {
-          require(['../components/ChannelList/ChannelList'], resolve)
+        { path: '/v_channels', name: 'v_channel_list', meta: { needAuth: true }, component: function (resolve) {
+          require(['../components/VChannelList/VChannelList'], resolve)
         } },
         // 创建 channel
-        { path: '/channel/new', name: 'create_channel', meta: { needAuth: true }, component: function (resolve) {
-          require(['../components/ChannelForm/ChannelForm'], resolve)
+        { path: '/v_channel/new', name: 'create_v_channel', meta: { needAuth: true }, component: function (resolve) {
+          require(['../components/VChannelForm/VChannelForm'], resolve)
         } },
         // 更新 channel
-        { path: '/channel/:channelId', name: 'update_channel', meta: { needAuth: true }, component: function (resolve) {
-          require(['../components/ChannelForm/ChannelForm'], resolve)
+        { path: '/v_channel/:channelId', name: 'update_v_channel', meta: { needAuth: true }, component: function (resolve) {
+          require(['../components/VChannelForm/VChannelForm'], resolve)
         } }
       ]
     }

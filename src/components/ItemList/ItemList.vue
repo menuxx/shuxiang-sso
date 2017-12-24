@@ -1,6 +1,8 @@
 <template>
   <div class="container">
+
     <el-button class="add-button" @click="toCreateItemForm" type="primary" icon="el-icon-circle-plus">添加商品(书籍)</el-button>
+
     <el-table
       :data="items"
       border
@@ -53,7 +55,6 @@
         label="操作"
         width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="small">查看</el-button>
           <el-button @click.native="onEditItem(scope.$index)" type="text" size="small">编辑</el-button>
         </template>
       </el-table-column>

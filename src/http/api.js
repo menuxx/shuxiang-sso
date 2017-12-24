@@ -11,7 +11,7 @@ const pageSize = 10
  * @param pageNum
  * @returns {AxiosPromise<any>}
  */
-export const getChannelOrders = (channelId, pageNum) => {
+export const loadChannelOrders = (channelId, pageNum=1) => {
   return http.get(`/orders?channelId=${channelId}&pageNum=${pageNum}&pageSize=${pageSize}`)
 }
 
@@ -41,7 +41,6 @@ export const loadExpresses = () => {
  */
 export const createItem = (newItem) => {
   newItem.thumbImgs = imageArrayToString(newItem.thumbImgs, config.QiNiuImagePrefix.item)
-  newItem.coverImage = imageArrayToString(newItem.coverImage, config.QiNiuImagePrefix.item)
   return http.post(`items`, newItem)
 }
 
@@ -53,7 +52,6 @@ export const loadItems = (pageNum=1) => {
   return http.get(`items?pageNum=${pageNum}&pageSize=${pageSize}`).then(function (res) {
     res.data = res.data.map( item => {
       item.thumbImgs = imageStringToArray(item.thumbImgs, config.QiNiuImagePrefix.item)
-      item.coverImage = imageStringToArray(item.coverImage, config.QiNiuImagePrefix.item)
       return item
     })
     return res
@@ -68,7 +66,6 @@ export const loadItems = (pageNum=1) => {
 export const getItemById = (itemId) => {
   return http.get(`items/${itemId}`).then(function (res) {
     res.data.thumbImgs = imageStringToArray(res.data.thumbImgs, config.QiNiuImagePrefix.item)
-    res.data.coverImage = imageStringToArray(res.data.coverImage, config.QiNiuImagePrefix.item)
     return res
   })
 }
@@ -87,8 +84,8 @@ export const updateItem = (item) => {
  * @param channel
  * @returns {AxiosPromise<any>}
  */
-export const createChannel = (channel) => {
-  return http.post(`channels`, channel)
+export const createVChannel = (channel) => {
+  return http.post(`v_channels`, channel)
 }
 
 /**
@@ -98,15 +95,24 @@ export const createChannel = (channel) => {
  * @returns {AxiosPromise<any>}
  */
 export const updateChannel = (channelId, updateChannel) => {
-  return http.put(`channels/${channelId}`, updateChannel)
+  return http.put(`v_channels/${channelId}`, updateChannel)
 }
 
 /**
  * 加载商家所有的渠道
+ * @returns {Promise.<TResult>}
+ */
+export const loadChannels = (pageNum=1) => {
+  return http.get(`v_channels?pageNum=${pageNum}&pageSize=${pageSize}`)
+}
+
+/**
+ * 获取制定id的大v渠道
+ * @param channelId
  * @returns {AxiosPromise<any>}
  */
-export const loadChannels = () => {
-  return http.get(`channels`)
+export const getChannel = (channelId) => {
+  return http.get(`v_channels/${channelId}`)
 }
 
 /**
