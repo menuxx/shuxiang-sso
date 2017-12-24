@@ -26,7 +26,7 @@ const state = {
   // item 表单
   itemForm: {
     name: '',
-    price: 0,
+    price: 1,
     thumbImgs: [],
     coverImage: [],
     isbn: '',

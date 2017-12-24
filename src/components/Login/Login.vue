@@ -1,22 +1,31 @@
 <template>
   <div class="page-container">
-    <el-form @submit.native.prevent="onLogin" ref="loginForm" :model="loginForm" :rules="rules" class="login-form" label-width="100px">
-      <el-form-item label="手机号" prop="phoneNumber">
-        <el-input v-model="loginForm.phoneNumber" placeholder="收取验证码的手机号" />
-      </el-form-item>
-      <el-form-item label="手机动态码" prop="captchaCode">
-        <el-col :span="10">
-          <el-input v-model="loginForm.captchaCode" />
-        </el-col>
-        <el-col :span="2">&nbsp;</el-col>
-        <el-col :span="5">
-          <el-button type="success" :disabled="sendCaptchaDisable" @click="onSendCaptcha">{{ captchaBtnText }}</el-button>
-        </el-col>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" native-type="submit">登录</el-button>
-      </el-form-item>
-    </el-form>
+    <el-row justify="center" type="flex">
+      <el-col :span="10">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span style="line-height: 36px;">出版商登录</span>
+          </div>
+          <el-form @submit.native.prevent="onLogin" ref="loginForm" :model="loginForm" :rules="rules" class="login-form" label-width="100px">
+            <el-form-item label="手机号" prop="phoneNumber">
+              <el-input v-model="loginForm.phoneNumber" placeholder="收取验证码的手机号" />
+            </el-form-item>
+            <el-form-item label="手机动态码" prop="captchaCode">
+              <el-col :span="18">
+                <el-input v-model="loginForm.captchaCode" />
+              </el-col>
+              <el-col :span="1">&nbsp;</el-col>
+              <el-col :span="5">
+                <el-button type="success" :disabled="sendCaptchaDisable" @click="onSendCaptcha">{{ captchaBtnText }}</el-button>
+              </el-col>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" native-type="submit">登录</el-button>
+            </el-form-item>
+          </el-form>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>
@@ -25,6 +34,7 @@
   import * as auth from '../../http/auth'
   import * as types from '../../store/types'
   import isEmpty from 'is-empty'
+  import ElCol from "element-ui/packages/col/src/col";
   var loginPromise = completePromise()
   var sendCaptchaPromise = completePromise()
 
@@ -42,6 +52,7 @@
     return parseInt(sessionStorage.getItem('__captcha_send_times__'), 10)
   }
   export default {
+    components: {ElCol},
     data() {
       return {
         rules: {
@@ -120,7 +131,7 @@
               auth.setMyAuthToken(token)
               auth.setUserInfo(userInfo)
               this.$store.commit(types.USER_AUTH_TOKEN_UPDATE, {token, userInfo})
-              this.$router.push({ path: this.redirectPath})
+              this.$router.push({ path: this.redirectPath })
             }, err => {
               this.$message.error('登录出现错误:' + err.message)
             })
@@ -131,7 +142,4 @@
   }
 </script>
 <style lang="scss" scoped>
-  .login-form {
-    width: 600px;
-  }
 </style>

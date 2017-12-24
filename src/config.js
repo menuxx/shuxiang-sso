@@ -13,7 +13,7 @@ if (isProd()) {
   config = {
     Domain: {
       // APIBaseUrl: "http://wxdev.qurenjia.com/api"
-      APIBaseUrl: "http://192.168.199.244:8081/api"
+      APIBaseUrl: "http://127.0.0.1:8081/api"
     }
   }
 }

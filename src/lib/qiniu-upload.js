@@ -87,7 +87,7 @@ function getUpToken () {
  * https://developer.qiniu.com/kodo/api/1312/upload
  * @param request
  */
-export default function upload (option) {
+export default function (option) {
   var form = new FormData()
   return getUpToken().then(function (token) {
     form.append("key", option.data.keyPrefix + randomString(10) + getSuffix(option.file.name) )

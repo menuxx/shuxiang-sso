@@ -1,5 +1,7 @@
 
 import http from './index'
+import config from '../config'
+import {imageArrayToString, imageStringToArray} from '../lib/image'
 
 const pageSize = 10
 
@@ -34,19 +36,41 @@ export const loadExpresses = () => {
 
 /**
  * 创建一个商品
- * @param item
+ * @param newItem
  * @returns {AxiosPromise<any>}
  */
-export const createItem = (item) => {
-  return http.post(`items`, item)
+export const createItem = (newItem) => {
+  newItem.thumbImgs = imageArrayToString(newItem.thumbImgs, config.QiNiuImagePrefix.item)
+  newItem.coverImage = imageArrayToString(newItem.coverImage, config.QiNiuImagePrefix.item)
+  return http.post(`items`, newItem)
 }
 
 /**
  * 加载商品
- * @returns {AxiosPromise<any>}
+ * @returns {Promise.<TResult>}
  */
-export const loadItems = (pageNum) => {
-  return http.get(`items?pageNum=${pageNum}&pageSize=${pageSize}`)
+export const loadItems = (pageNum=1) => {
+  return http.get(`items?pageNum=${pageNum}&pageSize=${pageSize}`).then(function (res) {
+    res.data = res.data.map( item => {
+      item.thumbImgs = imageStringToArray(item.thumbImgs, config.QiNiuImagePrefix.item)
+      item.coverImage = imageStringToArray(item.coverImage, config.QiNiuImagePrefix.item)
+      return item
+    })
+    return res
+  })
+}
+
+/**
+ * 获取某个商品
+ * @param itemId
+ * @returns {Promise.<TResult>}
+ */
+export const getItemById = (itemId) => {
+  return http.get(`items/${itemId}`).then(function (res) {
+    res.data.thumbImgs = imageStringToArray(res.data.thumbImgs, config.QiNiuImagePrefix.item)
+    res.data.coverImage = imageStringToArray(res.data.coverImage, config.QiNiuImagePrefix.item)
+    return res
+  })
 }
 
 /**

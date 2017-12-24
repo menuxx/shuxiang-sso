@@ -44,11 +44,11 @@ const router = new Router({
           require(['../components/ChannelList/ChannelList'], resolve)
         } },
         // 创建 channel
-        { path: '/channel/:id', name: 'create_channel', meta: { needAuth: true }, component: function (resolve) {
+        { path: '/channel/new', name: 'create_channel', meta: { needAuth: true }, component: function (resolve) {
           require(['../components/ChannelForm/ChannelForm'], resolve)
         } },
         // 更新 channel
-        { path: '/channel/:id', name: 'update_channel', meta: { needAuth: true }, component: function (resolve) {
+        { path: '/channel/:channelId', name: 'update_channel', meta: { needAuth: true }, component: function (resolve) {
           require(['../components/ChannelForm/ChannelForm'], resolve)
         } }
       ]

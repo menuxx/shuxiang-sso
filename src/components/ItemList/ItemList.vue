@@ -2,7 +2,7 @@
   <div class="container">
     <el-button class="add-button" @click="toCreateItemForm" type="primary" icon="el-icon-circle-plus">添加商品(书籍)</el-button>
     <el-table
-      :data="tableData"
+      :data="items"
       border
       style="width: 100%">
       <el-table-column
@@ -54,7 +54,7 @@
         width="100">
         <template slot-scope="scope">
           <el-button type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button @click.native="onEditItem(scope.$index)" type="text" size="small">编辑</el-button>
         </template>
       </el-table-column>
 
@@ -63,66 +63,38 @@
 </template>
 
 <script>
+  import {loadItems} from '../../http/api'
+  import {mapActions, mapState, mapMutations} from 'vuex'
+  import * as types from '../../store/types'
+  import store from '../../store'
   export default {
     methods: {
+      ...mapMutations({
+        itemsLoaded: types.ITEMS_LOADED
+      }),
       toCreateItemForm(){
         this.$router.push({ name: 'create_item' })
+      },
+      onEditItem(index) {
+        var item = this.items[index]
+        this.$router.push({ name: 'update_item', params: { itemId: item.id } })
       }
+    },
+    beforeRouteEnter(to, from, next) {
+      var {pageNum} = to.query
+      loadItems(pageNum).then( res => {
+        next(vm => {
+          vm.itemsLoaded(res.data)
+        })
+      })
+    },
+    computed: {
+      ...mapState(['items'])
     },
     data() {
       return {
-        tableData: [{
-          name: '《活着》',
-          isbn: 'isbn',
-          press: '新华出版社',
-          authors: '悦瑞英',
-          translator: '尹昶胜',
-          describe: '例如：读这本书收获的不仅是...',
-          shopUrl: 'www.baidu.com'
-        }, {
-          name: '《活着》',
-          isbn: 'isbn',
-          press: '新华出版社',
-          authors: '悦瑞英',
-          translator: '尹昶胜',
-          describe: '例如：读这本书收获的不仅是...',
-          shopUrl: 'www.baidu.com'
-        }, {
-          name: '《活着》',
-          isbn: 'isbn',
-          press: '新华出版社',
-          authors: '悦瑞英',
-          translator: '尹昶胜',
-          describe: '例如：读这本书收获的不仅是...',
-          shopUrl: 'www.baidu.com'
-        }, {
-          name: '《活着》',
-          isbn: 'isbn',
-          press: '新华出版社',
-          authors: '悦瑞英',
-          translator: '尹昶胜',
-          describe: '例如：读这本书收获的不仅是...',
-          shopUrl: 'www.baidu.com'
-        }, {
-          name: '《活着》',
-          isbn: 'isbn',
-          press: '新华出版社',
-          authors: '悦瑞英',
-          translator: '尹昶胜',
-          describe: '例如：读这本书收获的不仅是...',
-          shopUrl: 'www.baidu.com'
-        }, {
-          name: '《活着》',
-          isbn: 'isbn',
-          press: '新华出版社',
-          authors: '悦瑞英',
-          translator: '尹昶胜',
-          describe: '例如：读这本书收获的不仅是...',
-          shopUrl: 'www.baidu.com'
-        }]
       }
     }
-
   }
 </script>
 

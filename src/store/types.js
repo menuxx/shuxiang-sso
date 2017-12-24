@@ -1,7 +1,7 @@
 
-export const LOGOUT = '用户登出'
+export const LOGOUT = 'user_logout'
 
-export const USER_AUTH_TOKEN_UPDATE = '用户令牌刷新成功'
+export const USER_AUTH_TOKEN_UPDATE = 'user_auth_token_update'
 
 // 商品更新
 export const ITEM_UPDATED = 'item_updated'
@@ -13,7 +13,7 @@ export const ITEM_FROM_UPDATED = 'item_from_update'
 export const ITEM_ADDED = 'item_added'
 
 // 加载商品
-export const ITEM_LOADED = 'item_loaded'
+export const ITEMS_LOADED = 'items_loaded'
 
 // 更新渠道
 export const CHANNEL_UPDATED = 'channel_updated'

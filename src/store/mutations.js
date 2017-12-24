@@ -10,12 +10,15 @@ export default {
   [types.CHANNEL_ADDED] (state, newChannel) {
     state.channels.push(newChannel)
   },
+  [types.ITEM_ADDED] (state, newItem) {
+    state.items.push(newItem)
+  },
   // 渠道中的订单加载
   [types.CHANNEL_ORDER_LOADED] (state, orders) {
     state.channelOrders = orders
   },
   // 商品记载完成
-  [types.ITEM_LOADED] (state, items) {
+  [types.ITEMS_LOADED] (state, items) {
     state.items = items
   },
   [types.ITEM_FROM_UPDATED] (state, itemFrom) {
