@@ -62,6 +62,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
+      excludeChunks: ['share'],
       inject: true,
       minify: {
         removeComments: true,
@@ -76,6 +77,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: config.build.share,
       template: 'share.html',
+      chunks: ['share'],
       inject: true,
       minify: {
         removeComments: true,
