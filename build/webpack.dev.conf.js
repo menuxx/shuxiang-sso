@@ -54,6 +54,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'share.html',
       template: 'share.html',
+      chunks: ['share'],
       inject: true
     })
   ]

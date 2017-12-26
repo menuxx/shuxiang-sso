@@ -99,9 +99,7 @@
   import isEmpty from 'is-empty'
   import uploadHandler from "../../lib/qiniu-upload"
   import config from '../../config'
-  import ElCol from "element-ui/packages/col/src/col";
   export default {
-    components: {ElCol},
     data() {
       return {
         uploadData: {

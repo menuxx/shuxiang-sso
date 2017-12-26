@@ -1,10 +1,10 @@
 
-const isInteger = function (val) {
+export const isNumber = function (val) {
   // [object Number]
   return Object.prototype.toString.call(val) === '[object Number]'
 };
 
-const isString = function (val) {
+export const isString = function (val) {
   // [object Number]
   return Object.prototype.toString.call(val) === '[object String]'
 };

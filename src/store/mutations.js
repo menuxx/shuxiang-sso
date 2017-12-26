@@ -35,6 +35,10 @@ export default {
   [types.V_CHANNEL_ORDERS_LOADED] (state, orders) {
     state.vChannelOrders = orders
   },
+  // 渠道启动
+  [types.V_CHANNEL_LAUNCHED] (state, orders) {
+
+  },
   [types.V_CHANNELS_LOADED] (state, channels) {
     state.vChannels = channels
   }

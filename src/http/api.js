@@ -106,6 +106,10 @@ export const loadChannels = (pageNum=1) => {
   return http.get(`v_channels?pageNum=${pageNum}&pageSize=${pageSize}`)
 }
 
+export const launchChannel = channelId => {
+  return http.put(`v_channel_store/${channelId}/launch`)
+}
+
 /**
  * 获取制定id的大v渠道
  * @param channelId

@@ -26,6 +26,6 @@ module.exports = {
   QiNiuBaseUrl: 'https://file.menuxx.com/',
   QiNiuImagePrefix: {
     item: 'images/items/',
-    vipChannelAvatar: 'images/channel/avatar/'
+    vChannelAvatar: 'images/channel/avatar/'
   }
 }

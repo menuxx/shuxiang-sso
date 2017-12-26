@@ -26,3 +26,6 @@ export const V_CHANNEL_ADDED = 'v_channel_added'
 
 // 加载渠道订单
 export const V_CHANNEL_ORDERS_LOADED = 'v_channel_orders_loaded'
+
+// 启动一个渠道
+export const V_CHANNEL_LAUNCHED = 'v_channel_store_launch'
