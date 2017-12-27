@@ -106,24 +106,16 @@
           keyPrefix: config.QiNiuImagePrefix.item
         },
         itemFormModel: {
-          name: '1111111',
-          price: 20,
-          thumbImgs: [{
-            key:"images/items/WaYeFQfxWC.jpg",
-            name : "54fbb2fb43166d222f57f465422309f79052d21b.jpg",
-            url : "https://file.menuxx.com/images/items/WaYeFQfxWC.jpg"
-          }],
-          coverImage: [{
-            key:"images/items/WaYeFQfxWC.jpg",
-            name : "54fbb2fb43166d222f57f465422309f79052d21b.jpg",
-            url : "https://file.menuxx.com/images/items/WaYeFQfxWC.jpg"
-          }],
-          isbn: '222',
-          press: '333',
-          authors: '444',
-          translators: '555',
-          describe: '666',
-          shopUrl: 'http://www.baidu.com'
+          name: '',
+          price: 0,
+          thumbImgs: [],
+          coverImage: [],
+          isbn: '',
+          press: '',
+          authors: '',
+          translators: '',
+          describe: '',
+          shopUrl: ''
         },
         uploadHandler,
         uploadThumbImages: [],

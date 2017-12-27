@@ -41,6 +41,7 @@ export const loadExpresses = () => {
  */
 export const createItem = (newItem) => {
   newItem.thumbImgs = imageArrayToString(newItem.thumbImgs, config.QiNiuImagePrefix.item)
+  newItem.coverImage = imageArrayToString(newItem.coverImage, config.QiNiuImagePrefix.item)
   return http.post(`items`, newItem)
 }
 
@@ -52,6 +53,7 @@ export const loadItems = (pageNum=1) => {
   return http.get(`items?pageNum=${pageNum}&pageSize=${pageSize}`).then(function (res) {
     res.data = res.data.map( item => {
       item.thumbImgs = imageStringToArray(item.thumbImgs, config.QiNiuImagePrefix.item)
+      item.coverImage = imageStringToArray(item.coverImage, config.QiNiuImagePrefix.item)
       return item
     })
     return res
