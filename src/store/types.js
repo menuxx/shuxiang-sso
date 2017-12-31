@@ -29,3 +29,8 @@ export const V_CHANNEL_ORDERS_LOADED = 'v_channel_orders_loaded'
 
 // 启动一个渠道
 export const V_CHANNEL_LAUNCHED = 'v_channel_store_launch'
+
+// 书码生成任务加载
+export const ITEM_CODE_TASKS_LOADED = 'item_code_tasks_loaded'
+
+export const ITEM_CODE_TASK_UPADTED = 'item_code_task_updated'

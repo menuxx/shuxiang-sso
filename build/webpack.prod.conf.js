@@ -62,22 +62,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
-      excludeChunks: ['share'],
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-    new HtmlWebpackPlugin({
-      filename: config.build.share,
-      template: 'share.html',
-      chunks: ['share'],
       inject: true,
       minify: {
         removeComments: true,

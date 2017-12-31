@@ -148,3 +148,37 @@ export const getSessionTokenByCaptcha = (mobile, captcha) => {
 export const refreshSessionToken = (token) => {
   return http.put(`/auth/refresh_token`, { token })
 }
+
+/**
+ * 创建一个 item code 生成任务
+ */
+export const createItemCodeTask = (totalNum, remark) => {
+  return http.post(`/item_code/task`, { totalNum, remark })
+}
+
+/**
+ * 超级管理员登录
+ * @param userName
+ * @param passwordEncrypted
+ * @returns {AxiosPromise<any>}
+ */
+export const rootLogin = (userName, passwordEncrypted) => {
+  return  http.put(`/auth/root_login`, { userName, passwordEncrypted })
+}
+
+/**
+ * 加载所有任务
+ * @returns {AxiosPromise<any>}
+ */
+export const loadCodeTasks = (pageNum=1) => {
+  return http.get(`/code_tasks?pageNum=${pageNum}`)
+}
+
+/**
+ * 获取 taskId
+ * @param taskId
+ * @returns {AxiosPromise<any>}
+ */
+export const getTaskById = (taskId) => {
+  return http.get(`code_tasks/${taskId}`)
+}

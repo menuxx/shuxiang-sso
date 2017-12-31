@@ -11,6 +11,8 @@ Vue.use(Vuex)
 const state = {
   auth: {},
   app: {},
+  // item code 生成任务
+  codeTasks: [],
   // 商品列表
   items: [],
   // 渠道中的订单列表

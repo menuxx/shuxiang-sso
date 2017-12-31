@@ -5,6 +5,7 @@
         <el-menu-item index="/"><i class="el-icon-menu"></i>首页</el-menu-item>
         <el-menu-item index="/items"><i class="el-icon-menu"></i>书籍</el-menu-item>
         <el-menu-item index="/v_channels"><i class="el-icon-menu"></i>渠道</el-menu-item>
+        <el-menu-item index="/item_code"><i class="el-icon-menu"></i>书码</el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>

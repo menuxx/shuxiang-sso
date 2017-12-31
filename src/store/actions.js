@@ -39,6 +39,20 @@ export default {
       commit(types.V_CHANNEL_LAUNCHED, res.data)
       return res.data
     })
+  },
+
+  loadCodeTask({commit}, pageNum) {
+    return api.loadCodeTasks(pageNum).then(res => {
+      commit(types.V_CHANNEL_LAUNCHED, res.data)
+      return res.data
+    })
+  },
+
+  getCodeTask({commit}, taskId) {
+    return api.getTaskById(taskId).then( res => {
+      commit(types.ITEM_CODE_TASK_UPADTED, res.data)
+      return res.data
+    })
   }
 
 }

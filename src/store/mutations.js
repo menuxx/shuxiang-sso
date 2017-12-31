@@ -41,5 +41,15 @@ export default {
   },
   [types.V_CHANNELS_LOADED] (state, channels) {
     state.vChannels = channels
-  }
+  },
+  [types.ITEM_CODE_TASKS_LOADED] (state, tasks) {
+    state.codeTasks = tasks
+  },
+  [types.ITEM_CODE_TASK_UPADTED] (state, newTask) {
+    state.codeTasks.forEach( (task, index) => {
+      if ( task.id === newTask.id ) {
+        state.codeTasks[index] = newTask
+      }
+    })
+  },
 }

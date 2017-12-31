@@ -17,6 +17,11 @@ Vue.prototype.$http = http
 
 Vue.use(ElementUI)
 
+Vue.filter('json', function (obj) {
+  console.log(obj)
+  return JSON.stringify(obj)
+})
+
 new Vue({
   el: '#app',
   http,

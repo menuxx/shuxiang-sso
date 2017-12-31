@@ -81,12 +81,9 @@
       width="80%"
       :before-close="handleShareImageDialogClose">
       <el-row>
-        <el-col :span="10">
-          <PhoneShareImage />
-        </el-col>
         <el-col :span="2"></el-col>
         <el-col :span="10">
-          <qrcode value="http://www.baidu.com/" :options="{ size: 300 }"></qrcode>
+          <qrcode :value="qrcodeImageUrl" :options="{ size: 300 }"></qrcode>
         </el-col>
       </el-row>
 
@@ -97,16 +94,13 @@
 <script>
   // https://github.com/xkeshi/vue-qrcode
   import Qrcode from '@xkeshi/vue-qrcode'
-  import PhoneShareImage from './PhoneShareImage'
   import {loadChannels} from '../../http/api'
   import {mapActions, mapState, mapMutations} from 'vuex'
   import * as types from '../../store/types'
   import store from '../../store'
-  import ElCol from "element-ui/packages/col/src/col";
+  import config from '../../config'
   export default {
     components: {
-      ElCol,
-      PhoneShareImage,
       Qrcode
     },
     methods: {
@@ -129,6 +123,7 @@
       },
       onShowShareImageDialog(index) {
         var channel = this.vChannels[index]
+        this.qrcodeImageUrl = config.Domain.SiteBaseUrl + `?#/v_channels/${channel.id}/share_image`
         this.showShareImageDialog = true
       }
     },
@@ -145,6 +140,7 @@
     },
     data() {
       return {
+        qrcodeImageUrl: null,
         showShareImageDialog: false
       }
     }

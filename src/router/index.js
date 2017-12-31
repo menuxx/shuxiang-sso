@@ -15,9 +15,16 @@ const router = new Router({
     { path: '/login', name: 'login', component: function (resolve) {
       require(['../components/Login/Login'], resolve)
     } },
+    { path: '/login/root', name: 'root_login', component: function (resolve) {
+      require(['../components/Login/RootLogin'], resolve)
+    } },
     { path: '/', meta: { needAuth: true }, redirect: '/index', component: function (resolve) {
       require(['../IndexLayout'], resolve)
     }, children: [
+        {
+          path: '/item_code', name: 'item_code', meta: { needAuth: true }, component: function (resolve) {
+          require(['../components/ItemCode/ItemCode'], resolve)
+        } },
         // 首页
         { path: '/index', name: 'index', meta: { needAuth: true }, component: function (resolve) {
           require(['../components/Dashboard/Dashboard'], resolve)
