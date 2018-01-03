@@ -174,7 +174,6 @@
                 var task = res.data.data
                 this.$message.success('生成任务已派发，等待生成结果完成')
                 this.generateFormDialog = false
-                console.log(task)
                 this.itemCodeTaskUpdated(task)
               }
             })
