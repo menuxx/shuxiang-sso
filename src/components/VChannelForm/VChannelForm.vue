@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="16">
-        <el-form @submit.native.prevent="submitForm" :model="channelFormModel" :rules="rules" label-width="100px" ref="channelForm" class="channel-form" size="small">
+        <el-form @submit.native.prevent="submitForm" novalidate :model="channelFormModel" :rules="rules" label-width="100px" ref="channelForm" class="channel-form" size="small">
 
           <el-form-item label="推荐商品(书)"  prop="itemId">
             <el-select v-model="channelFormModel.itemId" style="width:100%" placeholder=" 请选择推广的商品（书籍）">
@@ -11,13 +11,13 @@
           </el-form-item>
 
           <el-form-item label="邮递费"  prop="expressFee">
-            <el-input :value="0" placeholder="邮递费" v-model="channelFormModel.expressFee">
+            <el-input type="number" :value="0" placeholder="邮递费" v-model="channelFormModel.expressFee">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>
 
           <el-form-item label="支付价格" prop="payFee">
-            <el-input :value="0" v-model="channelFormModel.payFee" placeholder="不填就是0元免费送">
+            <el-input type="number" :value="0" v-model="channelFormModel.payFee" placeholder="不填就是0元免费送">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>
@@ -88,7 +88,8 @@
   import isEmpty from 'is-empty'
   const checkNumberGT = (compVal) => {
     return function (rule, value, callback) {
-      if (value >= compVal) {
+      var _value = parseInt(value, 10)
+      if (_value >= compVal) {
         callback()
       } else {
         callback(new Error('数字要大于' + compVal))
@@ -103,15 +104,15 @@
   }
 
   const dataToModel = (data) => {
-    data.expressFee *= 100
-    data.payFee *= 100
+    data.expressFee = parseInt(data.expressFee, 10) / 100
+    data.payFee = parseInt(data.payFee, 10) / 100
     return data
   }
 
   const modelToData = (model) => {
     var cloneModel = Object.assign({}, model)
-    cloneModel.expressFee /= 100
-    cloneModel.payFee /= 100
+    cloneModel.expressFee = parseInt(cloneModel.expressFee, 10) * 100
+    cloneModel.payFee = parseInt(cloneModel.payFee, 10) * 100
     return cloneModel
   }
 
