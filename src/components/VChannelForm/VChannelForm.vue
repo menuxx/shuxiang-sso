@@ -11,7 +11,15 @@
           </el-form-item>
 
           <el-form-item label="邮递费"  prop="expressFee">
-            <el-input placeholder="邮递费" v-model="channelFormModel.expressFee"></el-input>
+            <el-input :value="0" placeholder="邮递费" v-model="channelFormModel.expressFee">
+              <template slot="append">元</template>
+            </el-input>
+          </el-form-item>
+
+          <el-form-item label="支付价格" prop="payFee">
+            <el-input :value="0" v-model="channelFormModel.payFee" placeholder="不填就是0元免费送">
+              <template slot="append">元</template>
+            </el-input>
           </el-form-item>
 
           <el-form-item label="推荐人头像" prop="ownerAvatar">
@@ -30,12 +38,9 @@
             </el-upload>
           </el-form-item>
 
-          <el-form-item label="支付价格" prop="payFee">
-            <el-input  v-model="channelFormModel.payFee" placeholder="不填就是0元免费送"></el-input>
-          </el-form-item>
-
           <el-form-item label="商品库存" prop="stock">
-            <el-input-number v-model="channelFormModel.stock" :min="1" label="大于1的整数"></el-input-number>
+            <el-input-number v-model="channelFormModel.stock" :min="1" label="大于1的整数">
+            </el-input-number>
           </el-form-item>
 
           <el-form-item label="大V姓名" prop="ownerName">
@@ -91,6 +96,25 @@
     }
   };
 
+  const monthPlus = (date, n) => {
+    var now = new Date(date.valueOf())
+    now.setMonth(now.getMonth() + n)
+    return new Date(now.valueOf())
+  }
+
+  const dataToModel = (data) => {
+    data.expressFee *= 100
+    data.payFee *= 100
+    return data
+  }
+
+  const modelToData = (model) => {
+    var cloneModel = Object.assign({}, model)
+    cloneModel.expressFee /= 100
+    cloneModel.payFee /= 100
+    return cloneModel
+  }
+
   export default {
     beforeRouteEnter(to, from, next) {
       if ( to.name === 'create_v_channel' ) {
@@ -105,14 +129,14 @@
         Promise.all([loadItems(), getChannel(channelId)]).then( res =>{
           next(vm => {
             vm.items = res[0].data
-            vm.channelFormModel = res[1].data
+            vm.channelFormModel = dataToModel(res[1].data)
           })
         })
       }
     },
     data() {
       var startTime = new Date()
-      var endTime = new Date(startTime.valueOf() + 7200 * 1000)
+      var endTime = monthPlus(new Date(), 1)  // 现在的时间偏移一个月
       return {
         items: [],
         ownerAvatar: [],
@@ -121,7 +145,7 @@
         },
         channelFormModel: {
           expressFee: 0.0,
-          payFee: 0,
+          payFee: 0.0,
           stock: 1,
           ownerName: '蒙娜丽莎',
           ownerAvatar: '',
@@ -132,11 +156,11 @@
         rules: {
           expressFee: [
             { required: true, message: '必填项', trigger: 'blur' },
-            { type: "number", message: '填写数字', trigger: 'blur' }
+            { validator: checkNumberGT(0), trigger: 'blur' }
           ],
-          price: [
+          payFee: [
             { required: true, message: '必填项', trigger: 'blur' },
-            { type: "number", message: '填写数字', trigger: 'blur' }
+            { validator: checkNumberGT(0), trigger: 'blur' }
           ],
           stock: [
             { required: true, message: '必填项', trigger: 'blur' },
@@ -171,7 +195,7 @@
           if ( valid ) {
             this.channelFormModel.startTime = this.channelFormModel.timeRange[0]
             this.channelFormModel.endTime = this.channelFormModel.timeRange[1]
-            this.createVChannel(this.channelFormModel).then( res => {
+            this.createVChannel(modelToData(this.channelFormModel)).then( res => {
               return this.launchChannel(res.id)
             })
             .then( res => {
