@@ -111,8 +111,8 @@
 
   const modelToData = (model) => {
     var cloneModel = Object.assign({}, model)
-    cloneModel.expressFee = parseInt(cloneModel.expressFee, 10) * 100
-    cloneModel.payFee = parseInt(cloneModel.payFee, 10) * 100
+    cloneModel.expressFee = parseFloat(cloneModel.expressFee, 10) * 100
+    cloneModel.payFee = parseFloat(cloneModel.payFee, 10) * 100
     return cloneModel
   }
 
