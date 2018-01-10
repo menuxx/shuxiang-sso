@@ -148,9 +148,9 @@
           expressFee: 0.0,
           payFee: 0.0,
           stock: 1,
-          ownerName: '蒙娜丽莎',
+          ownerName: '',
           ownerAvatar: '',
-          giftTxt: '蒙娜丽莎神秘的微笑',
+          giftTxt: '',
           itemId: null,
           timeRange: [startTime, endTime]
         },
@@ -172,7 +172,9 @@
             { required: true, message: '请输入推荐人姓名', trigger: 'blur' },
           ],
           giftTxt: [
-            { required:true, message: '需要填写赠言', trigger: 'blur' }
+            { required: true, message: '需要填写赠言', trigger: 'blur' },
+            { min: 10, message: '至少10个汉字及字符', trigger: 'blur' },
+            { max: 72, message: '最多72个汉字及字符', trigger: 'blur' }
           ]
         }
       }
